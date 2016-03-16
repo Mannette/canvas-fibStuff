@@ -3,6 +3,7 @@ var context = canvas.getContext('2d');
 var size = { x: canvas.width, y: canvas.height };
 var pixelSize = 5;
 var incriment = 0;
+var frame;
 
 // draws border
 function drawBorder () {
@@ -604,11 +605,11 @@ function sunflowerFrame () {
   incriment+= 0.1;
   sunflower(incriment);
   if (counter < 10000) {
-    window.requestAnimationFrame(sunflowerFrame);
+    frame = window.requestAnimationFrame(sunflowerFrame);
     counter++;
-    console.log(counter);
+    // console.log(counter);
   } else {
-    window.cancelAnimationFrame(sunflowerFrame);
+    window.cancelAnimationFrame(frame);
   }
 }
   /////////////////////
@@ -673,6 +674,9 @@ dotsButton.onclick = function () {
 
 // clear canvas
 clearButton.onclick = function () {
+  if (frame !== undefined) {
+    window.cancelAnimationFrame(frame);
+  }
   context.clearRect(0, 0, size.x, size.y);
   drawBorder();
 };
